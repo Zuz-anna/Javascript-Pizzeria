@@ -54,8 +54,19 @@
     menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
   };
 
+  class Product {
+    constructor() {
+      const thisProduct = this;
+      console.log('new Product', thisProduct);
+    },
+  };
+
   const app = {
-  
+    initMenu: function() {
+      const testProduct = new Product();
+      console.log('testProduct:', testProduct);
+    },
+
     init: function() {
       const thisApp = this;
       // eslint-disable-next-line no-undef
@@ -73,14 +84,6 @@
     },
   };
 /* eslint-enable no-alert, no-console */
-
-  class Product {
-    constructor() {
-      const thisProduct = this;
-
-      console.log('new Product', thisProduct);
-    },
-  };
 
   app.init();
 }
