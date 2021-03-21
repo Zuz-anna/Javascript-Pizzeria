@@ -1,12 +1,11 @@
 module.exports = {
     "env": {
-        "commonjs": true,
+        "browser": true,
         "es6": true
     },
     "extends": "eslint:recommended",
     "globals": {
-        "Atomics": "readonly",
-        "SharedArrayBuffer": "readonly"
+        "Handlebars": false
     },
     "parserOptions": {
         "ecmaFeatures": {
@@ -18,5 +17,24 @@ module.exports = {
         "react"
     ],
     "rules": {
+        "indent": [
+            "error",
+            2
+        ],
+        "linebreak-style": [
+            "off"
+        ],
+        "quotes": [
+            "error",
+            "single",
+            {"allowTemplateLiterals": true}
+        ],
+        "semi": [
+            "error",
+            "always"
+        ],
+        "no-console": [
+            "off"
+        ]
     }
 };

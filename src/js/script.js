@@ -1,3 +1,4 @@
+/* eslint-disable no-extra-semi */
 /* global Handlebars, utils, dataSource */ // eslint-disable-line no-unused-vars
 
 {
@@ -51,17 +52,30 @@
   /* eslint-disable no-alert, no-console */
   const templates = {
     // eslint-disable-next-line no-undef
-    menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
+    menuProduct: Handlebars.compile (document.querySelector (select.templateOf.menuProduct).innerHTML),
   };
 
   class Product {
-    constructor(id, data) {
+    constructor (id, data) {
       const thisProduct = this;
 
       thisProduct.id = id;
       thisProduct.data = data;
-      
+
+      thisProduct.renderInMenu();
+
       console.log('new Product', thisProduct);
+    }
+
+    renderInMenu() {
+      const thisProduct = this;
+      const generatedHTML = templates.menuProduct (thisProduct.data);
+
+      thisProduct.element = utils.createDOMFromHTML (generatedHTML);
+
+      const menuContainer = document.querySelector (select.containerOf.menu);
+
+      menuContainer.appendChild (thisProduct.element);
     }
   };
 
@@ -99,7 +113,7 @@
       thisApp.data = dataSource;
     }
   };
-/* eslint-enable no-alert, no-console */
+  /* eslint-enable no-alert, no-console */
 
   app.init();
 }
