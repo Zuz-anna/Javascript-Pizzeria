@@ -82,6 +82,12 @@
 
       thisApp.initMenu();
     },
+
+    initData: function() {
+      const thisApp = this;
+
+      thisApp.data = dataSource;
+    }
   };
 /* eslint-enable no-alert, no-console */
 
