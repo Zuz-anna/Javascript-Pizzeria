@@ -74,5 +74,13 @@
   };
 /* eslint-enable no-alert, no-console */
 
+  class Product {
+    constructor() {
+      const thisProduct = this;
+
+      console.log('new Product', thisProduct);
+    },
+  };
+
   app.init();
 }
