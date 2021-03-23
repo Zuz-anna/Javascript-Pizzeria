@@ -67,6 +67,7 @@
       thisProduct.id = id;
       thisProduct.data = data;
       thisProduct.renderInMenu();
+      thisProduct.getElements();
       thisProduct.initAccordion();
     };
 
@@ -81,12 +82,22 @@
       menuContainer.appendChild (thisProduct.element);
     };
 
+    getElements() {
+
+      const thisProduct = this;
+    
+      thisProduct.accordionTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
+      thisProduct.form = thisProduct.element.querySelector(select.menuProduct.form);
+      thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
+      thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
+      thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
+    };
+
     initAccordion() {
 
       const thisProduct = this;
-      const clickableTrigger = thisProduct.element.querySelector (select.menuProduct.clickable); //Nie mam pojęcia dlaczego akurat na thisProduct.element
-
-      clickableTrigger.addEventListener ( 'click', function(Event) {
+      
+      thisProduct.accordionTrigger.addEventListener ( 'click', function(Event) {
         
         Event.preventDefault();
 
@@ -107,8 +118,6 @@
 
       const thisApp = this; 
 
-      console.log('thisApp.data:', thisApp.data);
-
       for (let productData in thisApp.data.products) {
         new Product (productData, thisApp.data.products[productData]);
       }
@@ -117,15 +126,11 @@
     init: function() {
 
       const thisApp = this;
-      // eslint-disable-next-line no-undef
+
       console.log('*** App starting ***'); 
-      // eslint-disable-next-line no-undef
       console.log('thisApp:', thisApp);
-      // eslint-disable-next-line no-undef
       console.log('classNames:', classNames);
-      // eslint-disable-next-line no-undef
       console.log('settings:', settings);
-      // eslint-disable-next-line no-undef
       console.log('templates:', templates);
 
       thisApp.initData();
