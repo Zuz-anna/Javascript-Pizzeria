@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-extra-semi */
 /* global Handlebars, utils, dataSource */ // eslint-disable-line no-unused-vars
 
@@ -55,34 +56,57 @@
     menuProduct: Handlebars.compile (document.querySelector (select.templateOf.menuProduct).innerHTML),
   };
 
+
+
   class Product {
+
     constructor (id, data) {
+
       const thisProduct = this;
 
       thisProduct.id = id;
       thisProduct.data = data;
-
       thisProduct.renderInMenu();
-
-      console.log('new Product', thisProduct);
-    }
+      thisProduct.initAccordion();
+    };
 
     renderInMenu() {
+
       const thisProduct = this;
       const generatedHTML = templates.menuProduct (thisProduct.data);
+      const menuContainer = document.querySelector (select.containerOf.menu);
 
       thisProduct.element = utils.createDOMFromHTML (generatedHTML);
 
-      const menuContainer = document.querySelector (select.containerOf.menu);
-
       menuContainer.appendChild (thisProduct.element);
-    }
+    };
+
+    initAccordion() {
+
+      const thisProduct = this;
+      const clickableTrigger = thisProduct.element.querySelector (select.menuProduct.clickable); //Nie mam pojęcia dlaczego akurat na thisProduct.element
+
+      clickableTrigger.addEventListener ( 'click', function(Event) {
+        
+        Event.preventDefault();
+
+        const activeProduct = document.querySelector (select.all.menuProductsActive);
+
+        if (activeProduct !== null && activeProduct !== thisProduct.element) {
+          activeProduct.classList.remove (classNames.menuProduct.wrapperActive);
+        } 
+          
+        thisProduct.element.classList.toggle (classNames.menuProduct.wrapperActive); 
+      });
+    };
   };
 
   const app = {
 
     initMenu: function() {
+
       const thisApp = this; 
+
       console.log('thisApp.data:', thisApp.data);
 
       for (let productData in thisApp.data.products) {
@@ -91,6 +115,7 @@
     },
 
     init: function() {
+
       const thisApp = this;
       // eslint-disable-next-line no-undef
       console.log('*** App starting ***'); 
@@ -108,12 +133,13 @@
     },
 
     initData: function() {
+
       const thisApp = this;
 
       thisApp.data = dataSource;
-    }
+    },
   };
-  /* eslint-enable no-alert, no-console */
+
 
   app.init();
 }
