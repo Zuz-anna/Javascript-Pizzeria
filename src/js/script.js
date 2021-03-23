@@ -69,6 +69,8 @@
       thisProduct.renderInMenu();
       thisProduct.getElements();
       thisProduct.initAccordion();
+      thisProduct.initOrderForm();
+      thisProduct.processOrder();
     };
 
     renderInMenu() {
@@ -86,19 +88,19 @@
 
       const thisProduct = this;
     
-      thisProduct.accordionTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
-      thisProduct.form = thisProduct.element.querySelector(select.menuProduct.form);
-      thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
-      thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
-      thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
+      thisProduct.accordionTrigger = thisProduct.element.querySelector (select.menuProduct.clickable);
+      thisProduct.form = thisProduct.element.querySelector (select.menuProduct.form);
+      thisProduct.formInputs = thisProduct.form.querySelectorAll (select.all.formInputs);
+      thisProduct.cartButton = thisProduct.element.querySelector (select.menuProduct.cartButton);
+      thisProduct.priceElem = thisProduct.element.querySelector (select.menuProduct.priceElem);
     };
 
     initAccordion() {
 
       const thisProduct = this;
       
-      thisProduct.accordionTrigger.addEventListener ( 'click', function(Event) {
-        
+      thisProduct.accordionTrigger.addEventListener ( 'click', function (Event) {
+
         Event.preventDefault();
 
         const activeProduct = document.querySelector (select.all.menuProductsActive);
@@ -110,6 +112,41 @@
         thisProduct.element.classList.toggle (classNames.menuProduct.wrapperActive); 
       });
     };
+
+    initOrderForm() {
+      
+      const thisProduct = this;
+      
+      thisProduct.form.addEventListener ('submit', function (Event) {
+        
+        Event.preventDefault();
+        thisProduct.processOrder();
+      });
+
+      for (let input of thisProduct.formInputs) {
+        input.addEventListener ('change', function (Event) {
+
+          Event.preventDefault();
+          thisProduct.processOrder();
+        });
+      }
+      
+      thisProduct.cartButton.addEventListener ('click', function (Event) {
+
+        Event.preventDefault();
+        thisProduct.processOrder();
+      });
+      
+      console.log(initOrderForm);
+      
+    };
+
+    processOrder() {
+
+      const thisProduct = this;
+      console.log(processOrder);
+    };
+
   };
 
   const app = {
