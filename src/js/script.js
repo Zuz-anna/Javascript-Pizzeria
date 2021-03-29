@@ -203,6 +203,20 @@
       thisWidget.linkIncrease = thisWidget.element.querySelector (select.widgets.amount.linkIncrease);
     };
 
+    setValue (value) {
+
+      const thisWidget = this;
+      const newValue = parseInt (value);
+
+      thisWidget.value = newValue;
+      thisWidget.input.value = thisWidget.value;
+
+      if (thisWidget.value !== newValue && !inNaN (newValue)) {
+        thisWidget.value = newValue;
+      };
+    };
+
+
   };
 
 
