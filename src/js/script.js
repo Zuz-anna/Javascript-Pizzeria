@@ -191,6 +191,7 @@
 
       thisWidget.getElements (element);
       thisWidget.setValue (thisWidget.input.value);
+      thisWidget.initActions();
     };
 
     getElements (element) {
@@ -207,15 +208,43 @@
 
       const thisWidget = this;
       const newValue = parseInt (value);
+      const valueMin = settings.amountWidget.defaultMin;
+      const valueMax = settings.amountWidget.defaultMax;
 
-      thisWidget.value = newValue;
-      thisWidget.input.value = thisWidget.value;
-
-      if (thisWidget.value !== newValue && !inNaN (newValue)) {
+      if (thisWidget.value !== newValue && !isNaN (newValue) && newValue >= valueMin && newValue <= valueMax) {
         thisWidget.value = newValue;
       };
+
+      thisWidget.input.value = thisWidget.value;
     };
 
+    initActions(){
+
+      const thisWidget = this;
+
+      thisWidget.input.addEventListener ('change', function () {
+        thisWidget.setValue (thisWidget.input.value);
+      });
+
+      thisWidget.linkDecrease.addEventListener ('click', function (Event) {
+        Event.preventDefault();
+        thisWidget.setValue (thisWidget.value -1);
+      });
+
+      thisWidget.linkIncrease.addEventListener ('click', function (Event) {
+        Event.preventDefault();
+        thisWidget.setValue (thisWidget.value +1);
+
+        thisWidget.announce();
+      });
+    };
+
+    announce () {
+      const thisWidget = this;
+      const event = new Event ('updated');
+
+      thisWidget.element.dispatchEvent (event);
+    };
 
   };
 
