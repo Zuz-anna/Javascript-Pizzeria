@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 /* eslint-disable no-extra-semi */
 /* global Handlebars, utils, dataSource */ // eslint-disable-line no-unused-vars
@@ -70,6 +71,7 @@
       thisProduct.getElements();
       thisProduct.initAccordion();
       thisProduct.initOrderForm();
+      thisProduct.initAmountWidget();
       thisProduct.processOrder();
     };
 
@@ -94,6 +96,7 @@
       thisProduct.cartButton = thisProduct.element.querySelector (select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector (select.menuProduct.priceElem);
       thisProduct.imageWrapper = thisProduct.element.querySelector (select.menuProduct.imageWrapper);
+      thisProduct.amountWidgetElem = thisProduct.element.querySelector (select.menuProduct.amountWidget);
     };
 
     initAccordion() {
@@ -139,6 +142,13 @@
       });
     };
 
+    initAmountWidget () {
+
+      const thisProduct = this;
+
+      thisProduct.amountWidget = new AmountWidget (thisProduct.amountWidgetElem);
+    };
+
     processOrder() {
       const thisProduct = this;
       const formData = utils.serializeFormToObject (thisProduct.form);
@@ -172,6 +182,20 @@
       thisProduct.priceElem.innerHTML = price;  
     };
   };
+
+  class AmountWidget { 
+
+    constructor (element) {
+
+      const thisWidget = this;
+
+      thisWidget.getElements (element);
+      thisWidget.setValue (thisWidget.input.value);
+    };
+
+  };
+
+
 
   const app = {
 
