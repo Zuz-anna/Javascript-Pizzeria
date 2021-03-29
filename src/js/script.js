@@ -71,7 +71,7 @@
       thisProduct.getElements();
       thisProduct.initAccordion();
       thisProduct.initOrderForm();
-      thisProduct.initAmountWidget();
+      thisProduct.initAmountWidget('updated', thisProduct.amountWidgetElem);
       thisProduct.processOrder();
     };
 
