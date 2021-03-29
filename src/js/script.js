@@ -93,6 +93,7 @@
       thisProduct.formInputs = thisProduct.form.querySelectorAll (select.all.formInputs);
       thisProduct.cartButton = thisProduct.element.querySelector (select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector (select.menuProduct.priceElem);
+      thisProduct.imageWrapper = thisProduct.element.querySelector (select.menuProduct.imageWrapper);
     };
 
     initAccordion() {
@@ -148,23 +149,28 @@
 
         for (let optionId in param.options) {
           const option = param.options [optionId];
-
-          if (formData [paramId] && formData [paramId].includes (optionId)) {
-            if (option.default !== true) { 
+          const optionImage = thisProduct.imageWrapper.querySelector('.' + paramId + '-' + optionId);
+          const optionSelected = formData [paramId] && formData [paramId].includes (optionId);
+          
+          if (optionSelected) {
+            if (!option.default) { 
               price += option.price;
-            }
-            else { 
-              if (option.default == true) {
-                price -= option.price;
-              };
+            } else if (option.default) { //cały czas mi tu nie działa, albo dodaje mi cenę przy odejmowaniu składników, albo nie odejmuje - need help
+              price -= option.price;
             }; 
+          };
+          
+          if (optionImage) {
+            if (optionSelected) {
+              optionImage.classList.add(classNames.menuProduct.imageVisible);
+            } else if (!optionSelected) {
+              optionImage.classList.remove (classNames.menuProduct.imageVisible);
+            };
           };
         };
       };
-      thisProduct.priceElem.innerHTML = price;
-      
+      thisProduct.priceElem.innerHTML = price;  
     };
-
   };
 
   const app = {
