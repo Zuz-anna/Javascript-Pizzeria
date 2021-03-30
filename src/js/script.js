@@ -182,7 +182,7 @@
           };
         };
       };
-      price *= thisProduct.amountWidget.value; //zwiększa się, ale się nie zmniejsza 
+      price *= thisProduct.amountWidget.value; 
       thisProduct.priceElem.innerHTML = price;  
     };
   };
@@ -214,6 +214,8 @@
       const newValue = parseInt (value);
       const valueMin = settings.amountWidget.defaultMin;
       const valueMax = settings.amountWidget.defaultMax;
+
+      thisWidget.value = settings.amountWidget.defaultValue;
 
       if (thisWidget.value !== newValue && !isNaN (newValue) && newValue >= valueMin && newValue <= valueMax) {
         thisWidget.value = newValue;
