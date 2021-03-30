@@ -71,7 +71,7 @@
       thisProduct.getElements();
       thisProduct.initAccordion();
       thisProduct.initOrderForm();
-      thisProduct.initAmountWidget('updated', thisProduct.amountWidgetElem);
+      thisProduct.initAmountWidget();
       thisProduct.processOrder();
     };
 
@@ -147,6 +147,9 @@
       const thisProduct = this;
 
       thisProduct.amountWidget = new AmountWidget (thisProduct.amountWidgetElem);
+      thisProduct.amountWidgetElem.addEventListener ('updated', function () {
+        thisProduct.processOrder();
+      })
     };
 
     processOrder() {
