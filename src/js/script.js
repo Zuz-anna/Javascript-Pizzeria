@@ -182,6 +182,7 @@
           };
         };
       };
+      price *= thisProduct.amountWidget.value; //zwiększa się, ale się nie zmniejsza 
       thisProduct.priceElem.innerHTML = price;  
     };
   };
@@ -233,7 +234,7 @@
         Event.preventDefault();
         thisWidget.setValue (thisWidget.value -1);
       });
-
+      thisWidget.announce();
       thisWidget.linkIncrease.addEventListener ('click', function (Event) {
         Event.preventDefault();
         thisWidget.setValue (thisWidget.value +1);
