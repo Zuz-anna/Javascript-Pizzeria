@@ -217,6 +217,7 @@
 
       if (thisWidget.value !== newValue && !isNaN (newValue) && newValue >= valueMin && newValue <= valueMax) {
         thisWidget.value = newValue;
+        thisWidget.announce();
       };
 
       thisWidget.input.value = thisWidget.value;
@@ -234,12 +235,10 @@
         Event.preventDefault();
         thisWidget.setValue (thisWidget.value -1);
       });
-      thisWidget.announce();
+
       thisWidget.linkIncrease.addEventListener ('click', function (Event) {
         Event.preventDefault();
         thisWidget.setValue (thisWidget.value +1);
-
-        thisWidget.announce();
       });
     };
 
