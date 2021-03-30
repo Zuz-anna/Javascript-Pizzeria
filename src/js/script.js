@@ -81,6 +81,7 @@
   const templates = {
     // eslint-disable-next-line no-undef
     menuProduct: Handlebars.compile (document.querySelector (select.templateOf.menuProduct).innerHTML),
+    cartProduct: Handlebars.compile(document.querySelector(select.templateOf.cartProduct).innerHTML),
   };
 
 
@@ -276,7 +277,6 @@
 
       thisWidget.element.dispatchEvent (event);
     };
-
   };
 
 
