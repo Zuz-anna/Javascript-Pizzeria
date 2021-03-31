@@ -77,14 +77,11 @@
     },
   };
 
-  /* eslint-disable no-alert, no-console */
   const templates = {
     // eslint-disable-next-line no-undef
     menuProduct: Handlebars.compile (document.querySelector (select.templateOf.menuProduct).innerHTML),
     cartProduct: Handlebars.compile(document.querySelector(select.templateOf.cartProduct).innerHTML),
   };
-
-
 
   class Product {
 
@@ -279,7 +276,7 @@
     };
   };
 
-  class cart {
+  class Cart {
 
     constructor (element) {
 
@@ -287,16 +284,11 @@
 
       thisCart.products = [];
       thisCart.getElements (element);
+      thisCart.initActions();
       console.log ('new cart', thisCart);
     };
 
-    getElements (element) {
 
-      const thisCart = this;
-
-      thisCart.dom = {};
-      thisCart.dom.wrapper = element;
-    };
   };
 
   const app = {
