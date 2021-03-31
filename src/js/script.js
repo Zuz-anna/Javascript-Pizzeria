@@ -287,7 +287,7 @@
       thisCart.initActions();
       console.log ('new cart', thisCart);
     };
-    
+
     getElements (element) {
 
       const thisCart = this;
@@ -297,6 +297,18 @@
       thisCart.dom.toggleTrigger = thisCart.dom.wrapper.querySelector (select.cart.toggleTrigger);
     };
 
+    initActions () {
+
+      const thisCart = this;
+
+      thisCart.dom.toggleTrigger.addEventListener ('click', function (Event) {
+
+        Event.preventDefault();
+
+        thisCart.dom.wrapper.classList.toggle (classNames.cart.wrapperActive);
+
+      });
+    };
 
   };
 
