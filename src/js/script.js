@@ -162,6 +162,7 @@
       thisProduct.cartButton.addEventListener ('click', function (Event) {
 
         Event.preventDefault();
+        thisProduct.addToCart();
         thisProduct.processOrder();
       });
     };
@@ -185,9 +186,9 @@
         const param = thisProduct.data.params [paramId];
 
         for (let optionId in param.options) {
-          const option = param.options [optionId];
+          const option = param.options[optionId];
           const optionImage = thisProduct.imageWrapper.querySelector('.' + paramId + '-' + optionId);
-          const optionSelected = formData [paramId] && formData [paramId].includes (optionId);
+          const optionSelected = formData[paramId] && formData[paramId].includes(optionId);
           
           if (optionSelected) {
             if (!option.default) { 
@@ -209,6 +210,13 @@
       price *= thisProduct.amountWidget.value; 
       thisProduct.priceElem.innerHTML = price;  
     };
+
+    addToCart() {
+      const thisProduct = this;
+
+      app.cart.add (thisProduct);
+    };
+
   };
 
   class AmountWidget { 
@@ -309,8 +317,9 @@
     };
 
     add (menuProduct) {
-
-    }
+      const thisCart = this;
+      console.log('adding procudct', menuProduct);
+    };
 
   };
 
