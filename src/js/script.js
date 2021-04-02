@@ -192,10 +192,10 @@
           if (optionSelected) {
             if (!option.default) { 
               price += option.price;
-            } else if (option.default) { //cały czas mi tu nie działa, albo dodaje mi cenę przy odejmowaniu składników, albo nie odejmuje - need help
-              price -= option.price;
             }; 
-          };
+          } else if (option.default) { 
+            price -= option.price;
+          }; 
           
           if (optionImage) {
             if (optionSelected) {
@@ -241,7 +241,7 @@
 
       thisWidget.value = settings.amountWidget.defaultValue;
 
-      if (thisWidget.value !== newValue && !isNaN (newValue) && newValue >= valueMin && newValue <= valueMax) {
+      if (thisWidget.value !== (newValue === 1) && !isNaN (newValue) && newValue >= valueMin && newValue <= valueMax) {
         thisWidget.value = newValue;
         thisWidget.announce();
       };
@@ -304,11 +304,13 @@
       thisCart.dom.toggleTrigger.addEventListener ('click', function (Event) {
 
         Event.preventDefault();
-
         thisCart.dom.wrapper.classList.toggle (classNames.cart.wrapperActive);
-
       });
     };
+
+    add (menuProduct) {
+
+    }
 
   };
 
@@ -347,7 +349,6 @@
       thisApp.cart = new Cart (cartElem);
     }
   };
-
 
   app.init();
 }
