@@ -86,7 +86,6 @@
   class Product {
 
     constructor (id, data) {
-
       const thisProduct = this;
 
       thisProduct.id = id;
@@ -100,7 +99,6 @@
     };
 
     renderInMenu() {
-
       const thisProduct = this;
       const generatedHTML = templates.menuProduct (thisProduct.data);
       const menuContainer = document.querySelector (select.containerOf.menu);
@@ -111,7 +109,6 @@
     };
 
     getElements() {
-
       const thisProduct = this;
     
       thisProduct.accordionTrigger = thisProduct.element.querySelector (select.menuProduct.clickable);
@@ -124,13 +121,11 @@
     };
 
     initAccordion() {
-
       const thisProduct = this;
       
       thisProduct.accordionTrigger.addEventListener ( 'click', function (Event) {
 
         Event.preventDefault();
-
         const activeProduct = document.querySelector (select.all.menuProductsActive);
 
         if (activeProduct !== null && activeProduct !== thisProduct.element) {
@@ -142,7 +137,6 @@
     };
 
     initOrderForm() {
-      
       const thisProduct = this;
       
       thisProduct.form.addEventListener ('submit', function (Event) {
@@ -167,8 +161,7 @@
       });
     };
 
-    initAmountWidget () {
-
+    initAmountWidget() {
       const thisProduct = this;
 
       thisProduct.amountWidget = new AmountWidget (thisProduct.amountWidgetElem);
@@ -217,12 +210,22 @@
       app.cart.add (thisProduct);
     };
 
+    prepareCartProduct() {
+      const thisProduct = this;
+      const productSummary = {
+        id: thisProduct.id,
+        name: thisProduct.name,
+        amount: thisProduct.amount,
+        priceSingle: thisProduct.priceSingle,
+        params: {},
+      };
+    }
+
   };
 
   class AmountWidget { 
 
     constructor (element) {
-
       const thisWidget = this;
 
       thisWidget.getElements (element);
@@ -231,7 +234,6 @@
     };
 
     getElements (element) {
-
       const thisWidget = this;
 
       thisWidget.element = element;
@@ -241,7 +243,6 @@
     };
 
     setValue (value) {
-
       const thisWidget = this;
       const newValue = parseInt (value);
       const valueMin = settings.amountWidget.defaultMin;
@@ -258,7 +259,6 @@
     };
 
     initActions(){
-
       const thisWidget = this;
 
       thisWidget.input.addEventListener ('change', function () {
@@ -287,7 +287,6 @@
   class Cart {
 
     constructor (element) {
-
       const thisCart = this; 
 
       thisCart.products = [];
@@ -296,8 +295,7 @@
       console.log ('new cart', thisCart);
     };
 
-    getElements (element) {
-
+    getElements(element) {
       const thisCart = this;
 
       thisCart.dom = {};
@@ -305,8 +303,7 @@
       thisCart.dom.toggleTrigger = thisCart.dom.wrapper.querySelector (select.cart.toggleTrigger);
     };
 
-    initActions () {
-
+    initActions() {
       const thisCart = this;
 
       thisCart.dom.toggleTrigger.addEventListener ('click', function (Event) {
@@ -316,7 +313,7 @@
       });
     };
 
-    add (menuProduct) {
+    add(menuProduct) {
       const thisCart = this;
       console.log('adding procudct', menuProduct);
     };
@@ -356,7 +353,7 @@
       const cartElem = document.querySelector (select.containerOf.cart);
       
       thisApp.cart = new Cart (cartElem);
-    }
+    },
   };
 
   app.init();
