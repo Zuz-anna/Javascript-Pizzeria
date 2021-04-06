@@ -234,7 +234,7 @@
         const param = thisProduct.data.params[paramId];
 
         params[paramId] = {
-          name: param.label,
+          label: param.label,
           options: {},
         };
 
@@ -321,7 +321,6 @@
       thisCart.products = [];
       thisCart.getElements (element);
       thisCart.initActions();
-      console.log ('new cart', thisCart);
     };
 
     getElements(element) {
@@ -330,6 +329,7 @@
       thisCart.dom = {};
       thisCart.dom.wrapper = element;
       thisCart.dom.toggleTrigger = thisCart.dom.wrapper.querySelector (select.cart.toggleTrigger);
+      thisCart.dom.productList = thisCart.dom.wrapper.querySelector (select.cart.productList);
     };
 
     initActions() {
@@ -342,17 +342,18 @@
       });
     };
 
-    add(menuProduct) {
+    add(productSummary) {
       const thisCart = this;
-      console.log('adding procudct', menuProduct);
-    };
+      const generatedHTML = templates.cartProduct (productSummary);
+      const generatedDOM = utils.createDOMFromHTML (generatedHTML);
 
+      thisCart.dom.productList.appendChild (generatedDOM);
+    };
   };
 
   const app = {
 
     initMenu: function() {
-
       const thisApp = this; 
 
       for (let productData in thisApp.data.products) {
@@ -361,7 +362,6 @@
     },
 
     init: function() {
-
       const thisApp = this;
 
       thisApp.initData();
@@ -370,14 +370,12 @@
     },
 
     initData: function() {
-
       const thisApp = this;
 
       thisApp.data = dataSource;
     },
 
     initCart: function() {
-
       const thisApp = this;
       const cartElem = document.querySelector (select.containerOf.cart);
       
