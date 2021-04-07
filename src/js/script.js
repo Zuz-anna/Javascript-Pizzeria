@@ -342,13 +342,42 @@
       });
     };
 
-    add(productSummary) {
+    add(menuProduct) {
       const thisCart = this;
-      const generatedHTML = templates.cartProduct (productSummary);
+      const generatedHTML = templates.cartProduct (menuProduct);
       const generatedDOM = utils.createDOMFromHTML (generatedHTML);
 
       thisCart.dom.productList.appendChild (generatedDOM);
+      thisCart.products.push (menuProduct);
     };
+  };
+
+  class CartProduct {
+    constructor (menuProduct, element) {
+      const thisCartProduct = this;
+
+      thisCartProduct.id = menuProduct.id;
+      thisCartProduct.name = menuProduct.name;
+      thisCartProduct.amount = menuProduct.amount;
+      thisCartProduct.priceSingle = menuProduct.priceSingle;
+      thisCartProduct.price = menuProduct.price;
+      thisCartProduct.params = menuProduct.params;
+
+      thisCartProduct.getElements (element); 
+      thisCartProduct.initAmountWidget(); 
+    };
+
+    getElements() {
+      const thisCartProduct = this;
+
+      thisCartProduct.dom = {};
+      thisCartProduct.dom.wrapper = element;
+      thisCartProduct.dom.amountWidget = thisCartProduct.dom.wrapper.querySelector (select.cartProduct.amountWidget);
+      thisCartProduct.dom.price = thisCartProduct.dom.wrapper.querySelector (select.cartProduct.price);
+      thisCartProduct.dom.edit = thisCartProduct.dom.wrapper.querySelector (select.cartProduct.edit);
+      thisCartProduct.dom.remove = thisCartProduct.dom.wrapper.querySelector (select.cartProduct.remove);
+    }; 
+    
   };
 
   const app = {
