@@ -377,6 +377,17 @@
       thisCartProduct.dom.edit = thisCartProduct.dom.wrapper.querySelector (select.cartProduct.edit);
       thisCartProduct.dom.remove = thisCartProduct.dom.wrapper.querySelector (select.cartProduct.remove);
     }; 
+
+    initAmountWidget() {
+      const thisCartProduct = this;
+
+      thisCartProduct.amountWidget = new AmountWidget (thisCartProduct.dom.amountWidget);
+      thisCartProduct.dom.amountWidget.addEventListener ('updated', function () {
+        thisCartProduct.amount = thisCartProduct.amountWidget.value;
+        thisCartProduct.price = thisCartProduct.amount * thisCartProduct.priceSingle;
+        thisCartProduct.dom.price = thisCartProduct.price;
+      });
+    }
   };
 
   const app = {
