@@ -348,7 +348,7 @@
       const generatedDOM = utils.createDOMFromHTML (generatedHTML);
 
       thisCart.dom.productList.appendChild (generatedDOM);
-      thisCart.products.push (menuProduct);
+      thisCart.products.push (new CartProduct(menuProduct, generatedDOM));
     };
   };
 
