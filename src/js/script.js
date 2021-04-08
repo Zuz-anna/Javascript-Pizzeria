@@ -325,39 +325,32 @@
       thisCart.initActions();
     };
 
-    add(menuProduct) {
-      const thisCart = this;
-      const generatedHTML = templates.cartProduct (menuProduct);
-      const generatedDOM = utils.createDOMFromHTML (generatedHTML);
-
-      thisCart.dom.productList.appendChild (generatedDOM);
-      thisCart.products.push (new CartProduct(menuProduct, generatedDOM));
-      thisCart.update();
-    };
-
     getElements(element) {
       const thisCart = this;
 
       thisCart.dom = {};
       thisCart.dom.wrapper = element;
-      thisCart.dom.toggleTrigger = thisCart.dom.wrapper.querySelector (select.cart.toggleTrigger);
-      thisCart.dom.productList = thisCart.dom.wrapper.querySelector (select.cart.productList);
-      thisCart.dom.deliveryFee = thisCart.dom.wrapper.querySelector (select.cart.deliveryFee);
-      thisCart.dom.subtotalPrice = thisCart.dom.wrapper.querySelector(select.cart.subtotalPrice);
-      thisCart.dom.totalPrice = thisCart.dom.wrapper.querySelectorAll(select.cart.totalPrice);
-      thisCart.dom.totalNumber = thisCart.dom.wrapper.querySelector(select.cart.totalNumber);
+      thisCart.dom.toggleTrigger = element.querySelector (select.cart.toggleTrigger);
+      thisCart.dom.productList = element.querySelector (select.cart.productList);
+      thisCart.dom.deliveryFee = element.querySelector (select.cart.deliveryFee);
+      thisCart.dom.subtotalPrice = element.querySelector(select.cart.subtotalPrice);
+      thisCart.dom.totalPrice = element.querySelectorAll(select.cart.totalPrice);
+      thisCart.dom.totalNumber = element.querySelector(select.cart.totalNumber);
     };
 
     initActions() {
       const thisCart = this;
 
-      thisCart.dom.toggleTrigger.addEventListener ('click', function (Event) {
-        Event.preventDefault();
+      thisCart.dom.toggleTrigger.addEventListener ('click', function () {
         thisCart.dom.wrapper.classList.toggle (classNames.cart.wrapperActive);
       });
 
       thisCart.dom.productList.addEventListener ('updated', function() {
         thisCart.update();
+      });
+
+      thisCart.dom.productList.addEventListener ('click', function(Event) {
+        thisCart.remove(Event.detail.cartProduct); // Ta funkcja mi wszystko wykrzacza
       });
     };
 
@@ -387,6 +380,23 @@
       thisCart.dom.totalNumber.innerHTML = thisCart.totalNumber;
       thisCart.dom.deliveryFee.innerHTML = thisCart.deliveryFee;
     };
+
+    add(menuProduct) {
+      const thisCart = this;
+      const generatedHTML = templates.cartProduct (menuProduct);
+      const generatedDOM = utils.createDOMFromHTML (generatedHTML);
+
+      thisCart.dom.productList.appendChild (generatedDOM);
+      thisCart.products.push (new CartProduct(menuProduct, generatedDOM));
+      thisCart.update();
+    };
+
+    remove(cartProduct) {  // A ta funkcja nie działa, usuwają się ceny, więc funkcja reaguje na click, ale nie usuwa elementu HTML 
+      const thisCart = this; //Ciekawostka jak nie ma linijki kodu CartProduct.remove(); to zmieniają się ceny i funkcja reaguje, jak tlyko dodaje się remove całość przestaje reagować na click
+      const indexOfProduct = thisCart.products.indexOf(cartProduct);
+      thisCart.products.splice(indexOfProduct, 1);     
+      thisCart.update();
+    };
   };
 
   class CartProduct {
@@ -401,7 +411,8 @@
       thisCartProduct.params = menuProduct.params;
 
       thisCartProduct.getElements (element); 
-      thisCartProduct.initAmountWidget(thisCartProduct); 
+      thisCartProduct.initAmountWidget(thisCartProduct);
+      thisCartProduct.initActions();
     };
 
     getElements(element) {
@@ -409,10 +420,10 @@
 
       thisCartProduct.dom = {};
       thisCartProduct.dom.wrapper = element;
-      thisCartProduct.dom.amountWidget = thisCartProduct.dom.wrapper.querySelector (select.cartProduct.amountWidget);
-      thisCartProduct.dom.price = thisCartProduct.dom.wrapper.querySelector (select.cartProduct.price);
-      thisCartProduct.dom.edit = thisCartProduct.dom.wrapper.querySelector (select.cartProduct.edit);
-      thisCartProduct.dom.remove = thisCartProduct.dom.wrapper.querySelector (select.cartProduct.remove);
+      thisCartProduct.dom.amountWidget = element.querySelector (select.cartProduct.amountWidget);
+      thisCartProduct.dom.price = element.querySelector (select.cartProduct.price);
+      thisCartProduct.dom.edit = element.querySelector (select.cartProduct.edit);
+      thisCartProduct.dom.remove = element.querySelector (select.cartProduct.remove);
     }; 
 
     initAmountWidget() {
@@ -425,7 +436,20 @@
         thisCartProduct.dom.price.innerHTML = thisCartProduct.price;
       });
     };
-    
+
+    initActions() {
+      const thisCartProduct = this;
+
+      thisCartProduct.dom.edit.addEventListener ('edit', function (Event) {
+        Event.preventDefault();
+      });
+
+      thisCartProduct.dom.remove.addEventListener ('remove', function (Event) {
+        Event.preventDefault();
+        thisCartProduct.remove();
+      });
+    };
+
     remove() {
       const thisCartProduct = this;
       const event = new CustomEvent ('remove', {
