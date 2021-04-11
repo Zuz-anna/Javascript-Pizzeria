@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 /* eslint-disable no-extra-semi */
-/* global Handlebars, utils, dataSource */ // eslint-disable-line no-unused-vars
+/* global Handlebars, utils */ // eslint-disable-line no-unused-vars
 
 {
   'use strict';
@@ -39,7 +39,7 @@
     cart: {
       productList: '.cart__order-summary',
       toggleTrigger: '.cart__summary',
-      totalNumber: `.cart__total-number`,
+      totalNumber: `.cart__total-number`,  //dlaczego tutaj jest inny cudzysłów
       totalPrice: '.cart__total-price strong, .cart__order-total .cart__order-price-sum strong',
       subtotalPrice: '.cart__order-subtotal .cart__order-price-sum strong',
       deliveryFee: '.cart__order-delivery .cart__order-price-sum strong',
@@ -75,10 +75,14 @@
     cart: {
       defaultDeliveryFee: 20,
     },
+    db: {
+      url: '//localhost:3131',
+      product: 'product',
+      order: 'order',
+    },
   };
 
   const templates = {
-    // eslint-disable-next-line no-undef
     menuProduct: Handlebars.compile (document.querySelector (select.templateOf.menuProduct).innerHTML),
     cartProduct: Handlebars.compile(document.querySelector(select.templateOf.cartProduct).innerHTML),
   };
@@ -96,6 +100,7 @@
       thisProduct.initOrderForm();
       thisProduct.initAmountWidget();
       thisProduct.processOrder();
+      // thisProduct.prepareCartProductParams(); sprawdź później czy to coś zmienia
     };
 
     renderInMenu() {
@@ -123,9 +128,9 @@
     initAccordion() {
       const thisProduct = this;
       
-      thisProduct.accordionTrigger.addEventListener ( 'click', function (Event) {
+      thisProduct.accordionTrigger.addEventListener ( 'click', function (event) {
 
-        Event.preventDefault();
+        event.preventDefault();
         const activeProduct = document.querySelector (select.all.menuProductsActive);
 
         if (activeProduct !== null && activeProduct !== thisProduct.element) {
@@ -139,25 +144,21 @@
     initOrderForm() {
       const thisProduct = this;
       
-      thisProduct.form.addEventListener ('submit', function (Event) {
-        
-        Event.preventDefault();
+      thisProduct.form.addEventListener ('submit', function (event) {
+        event.preventDefault();
         thisProduct.processOrder();
       });
 
       for (let input of thisProduct.formInputs) {
-        input.addEventListener ('change', function (Event) {
-
-          Event.preventDefault();
-          thisProduct.processOrder();
+        input.addEventListener ('change', function() {
+          thisProduct.processOrder(); //usunięty event default
         });
       }
-      
-      thisProduct.cartButton.addEventListener ('click', function (Event) {
 
-        Event.preventDefault();
-        thisProduct.addToCart();
+      thisProduct.cartButton.addEventListener ('click', function (event) {
+        event.preventDefault();
         thisProduct.processOrder();
+        thisProduct.addToCart();
       });
     };
 
@@ -294,13 +295,13 @@
         thisWidget.setValue (thisWidget.input.value);
       });
 
-      thisWidget.linkDecrease.addEventListener ('click', function (Event) {
-        Event.preventDefault();
+      thisWidget.linkDecrease.addEventListener ('click', function (event) {
+        event.preventDefault();
         thisWidget.setValue (thisWidget.value -1);
       });
 
-      thisWidget.linkIncrease.addEventListener ('click', function (Event) {
-        Event.preventDefault();
+      thisWidget.linkIncrease.addEventListener ('click', function (event) {
+        event.preventDefault();
         thisWidget.setValue (thisWidget.value +1);
       });
     };
@@ -341,16 +342,17 @@
     initActions() {
       const thisCart = this;
 
-      thisCart.dom.toggleTrigger.addEventListener ('click', function () {
+      thisCart.dom.toggleTrigger.addEventListener ('click', function (event) {
+        event.preventDefault(); //dodany prevent default
         thisCart.dom.wrapper.classList.toggle (classNames.cart.wrapperActive);
       });
 
       thisCart.dom.productList.addEventListener ('updated', function() {
         thisCart.update();
       });
-
-      thisCart.dom.productList.addEventListener ('click', function(Event) {
-        thisCart.remove(Event.detail.cartProduct); // Ta funkcja mi wszystko wykrzacza
+      
+      thisCart.dom.productList.addEventListener ('remove', function(event) { //Changed click to remove
+        thisCart.remove(event.detail.cartProduct); 
       });
     };
 
@@ -391,10 +393,11 @@
       thisCart.update();
     };
 
-    remove(cartProduct) {  // A ta funkcja nie działa, usuwają się ceny, więc funkcja reaguje na click, ale nie usuwa elementu HTML 
-      const thisCart = this; //Ciekawostka jak nie ma linijki kodu CartProduct.remove(); to zmieniają się ceny i funkcja reaguje, jak tlyko dodaje się remove całość przestaje reagować na click
+    remove(cartProduct) { 
+      const thisCart = this; 
       const indexOfProduct = thisCart.products.indexOf(cartProduct);
-      thisCart.products.splice(indexOfProduct, 1);     
+      thisCart.products.splice(indexOfProduct, 1);
+      cartProduct.dom.wrapper.remove();  
       thisCart.update();
     };
   };
@@ -411,7 +414,7 @@
       thisCartProduct.params = menuProduct.params;
 
       thisCartProduct.getElements (element); 
-      thisCartProduct.initAmountWidget(thisCartProduct);
+      thisCartProduct.initAmountWidget();// usunęłaś argument z wywołania
       thisCartProduct.initActions();
     };
 
@@ -440,12 +443,12 @@
     initActions() {
       const thisCartProduct = this;
 
-      thisCartProduct.dom.edit.addEventListener ('edit', function (Event) {
-        Event.preventDefault();
+      thisCartProduct.dom.edit.addEventListener ('click', function (event) { //changed edit to click
+        event.preventDefault();
       });
 
-      thisCartProduct.dom.remove.addEventListener ('remove', function (Event) {
-        Event.preventDefault();
+      thisCartProduct.dom.remove.addEventListener ('click', function (event) { //changed remove to click
+        event.preventDefault();
         thisCartProduct.remove();
       });
     };
@@ -468,22 +471,32 @@
       const thisApp = this; 
 
       for (let productData in thisApp.data.products) {
-        new Product (productData, thisApp.data.products[productData]);
-      }
+        new Product(thisApp.data.products[productData].id, thisApp.data.products[productData]);
+      };
     },
 
     init: function() {
       const thisApp = this;
 
       thisApp.initData();
-      thisApp.initMenu();
       thisApp.initCart();
     },
 
     initData: function() {
       const thisApp = this;
+      const url = settings.db.url + '/' + settings.db.product;
 
-      thisApp.data = dataSource;
+      fetch(url)
+        .then(function(rawResponse) {
+          return rawResponse.json();
+        })
+        .then(function(parsedResponse) {
+          thisApp.data.products = parsedResponse;
+          thisApp.initMenu(); //added thisApp.data.products declaration
+          console.log('parsedResponse', parsedResponse);
+        });
+      console.log('thisApp.data', JSON.stringify(thisApp.data));
+      thisApp.data = {};
     },
 
     initCart: function() {
@@ -495,4 +508,4 @@
   };
 
   app.init();
-}
+};
