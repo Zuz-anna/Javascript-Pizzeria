@@ -492,7 +492,20 @@
       thisCartProduct.dom.wrapper.dispatchEvent (event);
     };
 
+    getData() {
+      const thisCartProduct = this;
+      const formProduct = {
+        id: thisCartProduct.id,
+        amount: thisCartProduct.amount,
+        price: thisCartProduct.price,
+        priceSingle: thisCartProduct.priceSingle,
+        name: thisCartProduct.name,
+        params: thisCartProduct.params,
+      };
 
+      return formProduct;
+    };
+  };
 
   const app = {
 
