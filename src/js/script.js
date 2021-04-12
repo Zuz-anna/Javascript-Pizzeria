@@ -417,13 +417,13 @@
       const url = settings.db.url + '/' + settings.db.order;
 
       const payload = {
-        address: thisCart.dom.address,
-        phone: thisCart.dom.phone,
+        address: thisCart.dom.address.value,
+        phone: thisCart.dom.phone.value,
         totalPrice: thisCart.totalPrice,
         subtotalPrice: thisCart.subtotalPrice,
         totalNumber: thisCart.totalNumber,
         deliveryFee: thisCart.deliveryFee,
-        products: [],
+        products: []
       };
 
       for (let prod of thisCart.products) {
@@ -438,7 +438,7 @@
         body: JSON.stringify(payload),
       };
       
-      fetch(url, options);
+      fetch (url, options);
     };
   };
 
