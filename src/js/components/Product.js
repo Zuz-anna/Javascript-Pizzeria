@@ -1,6 +1,5 @@
 import {select, templates, classNames} from './settings.js';
 import {utils} from './utils.js';
-import {app} from './app.js';
 import AmountWidget from './components/AmountWidget.js';
 
 class Product {
@@ -16,7 +15,7 @@ class Product {
     thisProduct.initOrderForm();
     thisProduct.initAmountWidget();
     thisProduct.processOrder();
-  };
+  }
 
   renderInMenu() {
     const thisProduct = this;
@@ -26,7 +25,7 @@ class Product {
     thisProduct.element = utils.createDOMFromHTML (generatedHTML);
 
     menuContainer.appendChild (thisProduct.element);
-  };
+  }
 
   getElements() {
     const thisProduct = this;
@@ -38,7 +37,7 @@ class Product {
     thisProduct.priceElem = thisProduct.element.querySelector (select.menuProduct.priceElem);
     thisProduct.imageWrapper = thisProduct.element.querySelector (select.menuProduct.imageWrapper);
     thisProduct.amountWidgetElem = thisProduct.element.querySelector (select.menuProduct.amountWidget);
-  };
+  }
 
   initAccordion() {
     const thisProduct = this;
@@ -54,7 +53,7 @@ class Product {
         
       thisProduct.element.classList.toggle (classNames.menuProduct.wrapperActive); 
     });
-  };
+  }
 
   initOrderForm() {
     const thisProduct = this;
@@ -75,7 +74,7 @@ class Product {
       thisProduct.processOrder();
       thisProduct.addToCart();
     });
-  };
+  }
 
   initAmountWidget() {
     const thisProduct = this;
@@ -84,7 +83,7 @@ class Product {
     thisProduct.amountWidgetElem.addEventListener ('updated', function () {
       thisProduct.processOrder();
     });
-  };
+  }
 
   processOrder() {
     const thisProduct = this;
@@ -102,25 +101,25 @@ class Product {
         if (optionSelected) {
           if (!option.default) { 
             price += option.price;
-          }; 
+          } 
         } else if (option.default) { 
           price -= option.price;
-        }; 
+        } 
         
         if (optionImage) {
           if (optionSelected) {
             optionImage.classList.add(classNames.menuProduct.imageVisible);
           } else if (!optionSelected) {
             optionImage.classList.remove (classNames.menuProduct.imageVisible);
-          };
-        };
-      };
-    };
+          }
+        }
+      }
+    }
     
     price *= thisProduct.amountWidget.value; 
     thisProduct.priceSingle = price;
     thisProduct.priceElem.innerHTML = price;
-  };
+  }
 
   prepareCartProduct() {
     const thisProduct = this;
@@ -133,7 +132,7 @@ class Product {
       params: thisProduct.prepareCartProductParams(),
     };
     return (productSummary);
-  };
+  }
 
   prepareCartProductParams() {
     const thisProduct = this;
@@ -154,11 +153,11 @@ class Product {
         
         if (optionSelected) {
           params[paramId].options[optionId] = option.label;
-        }; 
-      };
-    };
+        } 
+      }
+    }
     return params;
-  };
+  }
 
   addToCart() {
     const thisProduct = this;
@@ -174,8 +173,8 @@ class Product {
     });
 
     thisProduct.element.dispatchEvent(event);
-  };
+  }
 
-};
+}
 
 export default Product;

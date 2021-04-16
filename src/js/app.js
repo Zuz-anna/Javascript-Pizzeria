@@ -9,7 +9,7 @@ const app = {
 
     for (let productData in thisApp.data.products) {
       new Product(thisApp.data.products[productData].id, thisApp.data.products[productData]);
-    };
+    }
   },
 
   init: function() {
