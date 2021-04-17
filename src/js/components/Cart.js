@@ -11,7 +11,7 @@ class Cart {
     thisCart.products = [];
     thisCart.getElements (element);
     thisCart.initActions();
-  };
+  }
 
   getElements(element) {
     const thisCart = this;
@@ -30,7 +30,7 @@ class Cart {
     thisCart.dom.form = element.querySelector (select.cart.form);
     thisCart.dom.address = thisCart.dom.form.querySelector (select.cart.address);
     thisCart.dom.phone = thisCart.dom.form.querySelector (select.cart.phone);
-  };
+  }
 
   initActions() {
     const thisCart = this;
@@ -52,8 +52,7 @@ class Cart {
       event.preventDefault();
       thisCart.sendOrder();
     });
-  };
-
+  }
   update() {
     const thisCart = this;
     thisCart.deliveryFee = settings.cart.defaultDeliveryFee;
@@ -63,23 +62,23 @@ class Cart {
     for (let product of thisCart.products) {
       thisCart.totalNumber += product.amount;
       thisCart.subtotalPrice += product.price;
-    };
+    }
 
     if (0 !== thisCart.totalNumber) {
       thisCart.totalPrice = thisCart.subtotalPrice + thisCart.deliveryFee;
     } else {
       thisCart.totalPrice = 0;
       thisCart.deliveryFee = 0;
-    }; 
+    } 
 
     for (let price of thisCart.dom.totalPrice) {
       price.innerHTML = thisCart.totalPrice;
-    };
+    }
 
     thisCart.dom.subtotalPrice.innerHTML = thisCart.subtotalPrice;
     thisCart.dom.totalNumber.innerHTML = thisCart.totalNumber;
     thisCart.dom.deliveryFee.innerHTML = thisCart.deliveryFee;
-  };
+  }
 
   add(menuProduct) {
     const thisCart = this;
@@ -89,7 +88,7 @@ class Cart {
     thisCart.dom.productList.appendChild (generatedDOM);
     thisCart.products.push (new CartProduct(menuProduct, generatedDOM));
     thisCart.update();
-  };
+  }
 
   remove(cartProduct) { 
     const thisCart = this; 
@@ -97,7 +96,7 @@ class Cart {
     thisCart.products.splice(indexOfProduct, 1);
     cartProduct.dom.wrapper.remove();  
     thisCart.update();
-  };
+  }
 
   sendOrder() {
     const thisCart = this; 
@@ -115,7 +114,7 @@ class Cart {
 
     for (let prod of thisCart.products) {
       payload.products.push(prod.getData());  
-    };
+    }
 
     const options = {
       method: 'POST',
@@ -126,7 +125,7 @@ class Cart {
     };
     
     fetch (url, options);
-  };
-};
+  }
+}
 
 export default Cart;
