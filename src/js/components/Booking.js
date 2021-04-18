@@ -1,10 +1,9 @@
 /* eslint-disable no-unused-vars */
 
-import {select, templates} from './settings.js';
+import {select, settings, classNames, templates} from '../settings.js';
 import AmountWidget from './components/AmountWidget.js';
 
-
-export class Booking {
+class Booking {
   constructor(element) {
     const thisBooking = this; 
 
@@ -34,3 +33,5 @@ export class Booking {
     thisBooking.dom.hoursAmount.addEventListener ('click', function(){});
   }
 }
+
+export default Booking;

@@ -1,5 +1,5 @@
-import {select, templates, classNames} from './settings.js';
-import {utils} from './utils.js';
+import {select, templates, classNames} from '../settings.js';
+import {utils} from '../utils.js';
 import AmountWidget from './components/AmountWidget.js';
 
 class Product {
