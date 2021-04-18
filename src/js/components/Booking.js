@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 
 import {select, templates} from './settings.js';
+import AmountWidget from './components/AmountWidget.js';
 
 
 export class Booking {
@@ -21,5 +22,15 @@ export class Booking {
 
     thisBooking.dom.peopleAmount = document.querySelector(select.booking.peopleAmount);
     thisBooking.dom.hoursAmount = document.querySelector(select.booking.hoursAmount);
+  }
+
+  initWidgets() {
+    const thisBooking = this;
+
+    thisBooking.peopleAmountWidget = new AmountWidget (thisBooking.dom.peopleAmount);
+    thisBooking.dom.peopleAmount.addEventListener ('click', function(){});
+
+    thisBooking.hoursAmountWidget = new AmountWidget (thisBooking.dom.hoursAmount);
+    thisBooking.dom.hoursAmount.addEventListener ('click', function(){});
   }
 }
