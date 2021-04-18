@@ -8,7 +8,7 @@ class AmountWidget {
     thisWidget.getElements (element);
     thisWidget.setValue (thisWidget.input.value);
     thisWidget.initActions();
-  };
+  }
 
   getElements (element) {
     const thisWidget = this;
@@ -17,7 +17,7 @@ class AmountWidget {
     thisWidget.input = thisWidget.element.querySelector (select.widgets.amount.input);
     thisWidget.linkDecrease = thisWidget.element.querySelector (select.widgets.amount.linkDecrease);
     thisWidget.linkIncrease = thisWidget.element.querySelector (select.widgets.amount.linkIncrease);
-  };
+  }
 
   setValue (value) {
     const thisWidget = this;
@@ -30,10 +30,10 @@ class AmountWidget {
     if (thisWidget.value !== (newValue === 1) && !isNaN (newValue) && newValue >= valueMin && newValue <= valueMax) {
       thisWidget.value = newValue;
       thisWidget.announce();
-    };
+    }
 
     thisWidget.input.value = thisWidget.value;
-  };
+  }
 
   initActions(){
     const thisWidget = this;
@@ -51,7 +51,7 @@ class AmountWidget {
       event.preventDefault();
       thisWidget.setValue (thisWidget.value +1);
     });
-  };
+  }
 
   announce () {
     const thisWidget = this;
@@ -60,7 +60,7 @@ class AmountWidget {
     });
 
     thisWidget.element.dispatchEvent (event);
-  };
-};
+  }
+}
 
 export default AmountWidget;

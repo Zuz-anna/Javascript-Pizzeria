@@ -15,7 +15,7 @@ class CartProduct {
     thisCartProduct.getElements (element); 
     thisCartProduct.initAmountWidget();
     thisCartProduct.initActions();
-  };
+  }
 
   getElements(element) {
     const thisCartProduct = this;
@@ -26,7 +26,7 @@ class CartProduct {
     thisCartProduct.dom.price = element.querySelector (select.cartProduct.price);
     thisCartProduct.dom.edit = element.querySelector (select.cartProduct.edit);
     thisCartProduct.dom.remove = element.querySelector (select.cartProduct.remove);
-  }; 
+  } 
 
   initAmountWidget() {
     const thisCartProduct = this;
@@ -37,7 +37,7 @@ class CartProduct {
       thisCartProduct.price = thisCartProduct.amount * thisCartProduct.priceSingle;
       thisCartProduct.dom.price.innerHTML = thisCartProduct.price;
     });
-  };
+  }
 
   initActions() {
     const thisCartProduct = this;
@@ -50,7 +50,7 @@ class CartProduct {
       event.preventDefault();
       thisCartProduct.remove();
     });
-  };
+  }
 
   remove() {
     const thisCartProduct = this;
@@ -61,7 +61,7 @@ class CartProduct {
       },
     });
     thisCartProduct.dom.wrapper.dispatchEvent (event);
-  };
+  }
 
   getData() {
     const thisCartProduct = this;
@@ -75,7 +75,7 @@ class CartProduct {
     };
 
     return formProduct;
-  };
-};
+  }
+}
 
 export default CartProduct;

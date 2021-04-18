@@ -38,9 +38,9 @@ const app = {
 
   initCart: function() {
     const thisApp = this;
-    const cartElem = document.querySelector (select.containerOf.cart);
+    const cartElement = document.querySelector (select.containerOf.cart);
       
-    thisApp.cart = new Cart (cartElem);
+    thisApp.cart = new Cart (cartElement); //zmienione Elem na element
 
     thisApp.productList = document.querySelector (select.containerOf.menu);
     thisApp.productList.addEventListener('add-to-cart', function(event) {
@@ -50,9 +50,9 @@ const app = {
 
   initBooking: function() {
     const thisApp = this;
-    const bookingElem = document.querySelector (select.containerOf.booking);
+    thisApp.bookingElement = document.querySelector (select.containerOf.booking);
     
-    thisApp.booking = new Booking (bookingElem);
+    thisApp.booking = new Booking (thisApp.bookingElement);
   },
 };
 

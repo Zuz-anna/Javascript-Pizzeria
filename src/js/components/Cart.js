@@ -5,7 +5,7 @@ import CartProduct from './components/CartProduct.js';
 
 class Cart {
 
-  constructor (element) {
+  constructor(element) {
     const thisCart = this; 
 
     thisCart.products = [];
