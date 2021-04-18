@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 
 import {select, settings, classNames, templates} from '../settings.js';
-import AmountWidget from './components/AmountWidget.js';
+import AmountWidget from '../components/AmountWidget.js';
 
 class Booking {
   constructor(element) {

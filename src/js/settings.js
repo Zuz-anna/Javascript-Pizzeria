@@ -14,15 +14,6 @@ export const select = {
     menuProducts: '#product-list > .product',
     menuProductsActive: '#product-list > .product.active',
     formInputs: 'input, select',
-    datePicker: {
-      wrapper: '.date-picker',
-      input: `input[name="date"]`,
-    },
-    hourPicker: {
-      wrapper: '.hour-picker',
-      input: 'input[type="range"]',
-      output: '.output',
-    },
   },
   menuProduct: {
     clickable: '.product__header',
@@ -38,8 +29,16 @@ export const select = {
       linkDecrease: 'a[href="#less"]',
       linkIncrease: 'a[href="#more"]',
     },
+    datePicker: {
+      wrapper: '.date-picker',
+      input: `input[name="date"]`,
+    },
+    hourPicker: {
+      wrapper: '.hour-picker',
+      input: 'input[type="range"]',
+      output: '.output',
+    },
   },
-
   cart: {
     productList: '.cart__order-summary',
     toggleTrigger: '.cart__summary',
