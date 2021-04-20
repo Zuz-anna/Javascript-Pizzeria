@@ -13,6 +13,8 @@ class Booking {
     thisBooking.render(element);
     thisBooking.initWidgets();
     thisBooking.getData();
+    
+    // thisBooking.tableSelected = null;
   }
   
   getData() {
@@ -180,6 +182,32 @@ class Booking {
       thisBooking.updateDOM();
     });
   }
+/*
+  initTables() {
+    const thisBooking = this;
+
+    thisBooking.dom.tables = thisBooking.tables;
+    thisBooking.tables.addEventListener('click', function(event){
+      event.preventDefault();
+
+      for ( thisBooking.table of thisBooking.dom.tables) {
+
+      }
+
+    });
+
+    for ( let table of thisBooking.dom.tables ) {
+
+      table.addEventListener('click', function(event) {
+        event.preventDefault();
+
+        thisBooking.tableId = table.getAttribute(settings.booking.tableIdAttribute);
+        thisBooking.tableSelected = parseInt(thisBooking.tableId); 
+
+        if (!)
+      });
+    }
+  }*/
 }
 
 export default Booking;

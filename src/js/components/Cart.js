@@ -79,7 +79,6 @@ class Cart {
     thisCart.dom.subtotalPrice.innerHTML = thisCart.subtotalPrice;
     thisCart.dom.totalNumber.innerHTML = thisCart.totalNumber;
     thisCart.dom.deliveryFee.innerHTML = thisCart.deliveryFee;
-    console.log(thisCart.deliveryFee, thisCart.totalNumber, thisCart.subtotalPrice);
   }
 
   add(menuProduct) {
@@ -108,7 +107,7 @@ class Cart {
       address: thisCart.dom.address.value,
       phone: thisCart.dom.phone.value,
       totalPrice: thisCart.totalPrice,
-      subtotalPrice: thisCart.subtotalPrice,
+      subtotalPrice: thisCart.data.subtotalPrice,
       totalNumber: thisCart.totalNumber,
       deliveryFee: thisCart.deliveryFee,
       products: []

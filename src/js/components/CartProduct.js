@@ -15,6 +15,7 @@ class CartProduct {
     thisCartProduct.getElements (element); 
     thisCartProduct.initAmountWidget();
     thisCartProduct.initActions();
+    thisCartProduct.dom.price.innerHTML = thisCartProduct.price;
   }
 
   getElements(element) {
