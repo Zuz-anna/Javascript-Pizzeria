@@ -112,7 +112,7 @@ class Booking {
 
   updateDOM(){
     const thisBooking = this;
-    
+
     thisBooking.date = thisBooking.datePicker.value;
     thisBooking.hour = utils.hourToNumber(thisBooking.hourPicker.value);
 
@@ -157,6 +157,8 @@ class Booking {
 
     thisBooking.dom.datePicker = thisBooking.dom.wrapper.querySelector(select.widgets.datePicker.wrapper);
     thisBooking.dom.hourPicker = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.wrapper);
+
+    thisBooking.dom.tables = thisBooking.dom.wrapper.querySelectorAll(select.booking.tables);
   }
 
   initWidgets() {
@@ -167,6 +169,10 @@ class Booking {
 
     thisBooking.hoursAmountWidget = new AmountWidget (thisBooking.dom.hoursAmount);
     thisBooking.dom.hoursAmount.addEventListener ('click', function(){});
+
+    thisBooking.dom.wrapper.addEventListener('updated', function(){
+      thisBooking.updateDOM();
+    });
   
     thisBooking.datePicker = new DatePicker (thisBooking.dom.datePicker);
     thisBooking.dom.datePicker.addEventListener ('updated', function() {});
