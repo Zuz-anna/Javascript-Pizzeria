@@ -170,16 +170,15 @@ class Booking {
     thisBooking.hoursAmountWidget = new AmountWidget (thisBooking.dom.hoursAmount);
     thisBooking.dom.hoursAmount.addEventListener ('click', function(){});
 
-    thisBooking.dom.wrapper.addEventListener('updated', function(){
-      thisBooking.updateDOM();
-    });
-  
     thisBooking.datePicker = new DatePicker (thisBooking.dom.datePicker);
     thisBooking.dom.datePicker.addEventListener ('updated', function() {});
 
     thisBooking.hourPicker = new HourPicker (thisBooking.dom.hourPicker);
     thisBooking.dom.hourPicker.addEventListener ('updated', function() {});
-  
+
+    thisBooking.dom.wrapper.addEventListener('updated', function(){
+      thisBooking.updateDOM();
+    });
   }
 }
 
