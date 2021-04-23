@@ -47,7 +47,7 @@ export const select = {
     subtotalPrice: '.cart__order-subtotal .cart__order-price-sum strong',
     deliveryFee: '.cart__order-delivery .cart__order-price-sum strong',
     form: '.cart__order',
-    formSubmit: '.cart__order [type="submit"]',
+    formSubmit: '.cart__order [type="submit"]', //nigdzie nie było użyte, po co mi to?
     phone: '[name="phone"]',
     address: '[name="address"]',
   },
@@ -62,6 +62,11 @@ export const select = {
     hoursAmount: '.hours-amount',
     tablesAll: '.floor-plan',
     tables: '.floor-plan .table',
+    form: '.booking-form',
+    phone: '[name="phone"]',
+    address: '[name="address"]',
+    starter: '[name="starter"]',
+    formSubmit: '.booking-form [type="submit"]',
   },
   nav: {
     links: '.main-nav a',
