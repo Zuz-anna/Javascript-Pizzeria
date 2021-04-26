@@ -189,16 +189,15 @@ class Booking {
       event.preventDefault();
       thisBooking.removeTables();
     });
+
+    thisBooking.dom.wrapper.addEventListener('updated', function(){
+      thisBooking.updateDOM();
+    });
+
     thisBooking.dom.form.addEventListener('submit', function(event){
       event.preventDefault();
       thisBooking.sendBooking();
     });
-    thisBooking.dom.wrapper.addEventListener('updated', function(event){
-      thisBooking.updateDOM();
-    });
-
-    
-
   }
 
   initTables() {
@@ -239,14 +238,14 @@ class Booking {
 
   sendBooking() {
     const thisBooking = this;
-    //const url = settings.db.url + '/' + settings.db.booking;
+    const url = settings.db.url + '/' + settings.db.booking;
 
     const payload = {
       date: thisBooking.datePicker.value,
       hour: thisBooking.hourPicker.value,
       table: thisBooking.tableNumber,
-      duration: thisBooking.dom.hoursAmount, 
-      ppl: thisBooking.dom.peopleAmount,
+      duration: thisBooking.dom.hoursAmount.value, 
+      ppl: thisBooking.dom.peopleAmount.value,
       phone: thisBooking.dom.phone.value,
       address: thisBooking.dom.address.value,
       starters: [],
@@ -259,7 +258,27 @@ class Booking {
     }
 
     console.log('payload', payload);
+
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    };
+
+    fetch (url, options)
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function(parsedResponse) {
+        console.log('parsedResponse', parsedResponse);
+        thisBooking.makeBooked(payload.date, payload.hour, payload.duration, payload.table);
+        thisBooking.getData();
+      });
+    thisBooking.removeTables();
   }
 }
+
 export default Booking;
 

@@ -37,7 +37,6 @@ const app = {
   activatePage: function(pageId) {
     const thisApp = this;
 
-    //add class active to matching pages, remove from non-matching
     for ( let page of thisApp.pages ) {
       page.classList.toggle(
         classNames.pages.active, 
@@ -96,7 +95,7 @@ const app = {
     const thisApp = this;
     const cartElement = document.querySelector (select.containerOf.cart);
       
-    thisApp.cart = new Cart (cartElement); //zmienione Elem na element
+    thisApp.cart = new Cart (cartElement); 
 
     thisApp.productList = document.querySelector (select.containerOf.menu);
     thisApp.productList.addEventListener('add-to-cart', function(event) {
