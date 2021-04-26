@@ -56,7 +56,7 @@ const app = {
   initHome: function() {
     const thisApp = this;
 
-    thisApp.homeWrapper = document.querySelector(select.containerOf.homePage);
+    thisApp.homeWrapper = document.querySelector(select.containerOf.home);
     thisApp.home = new Home(thisApp.homeWrapper);
   }, 
 
