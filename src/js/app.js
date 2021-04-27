@@ -9,21 +9,24 @@ const app = {
     const thisApp = this;
 
     thisApp.pages = document.querySelector (select.containerOf.pages).children; // dzięki childres wszystkie elementy wewnątrz containera będę zawarte w stałej
+    thisApp.homeLinks = document.querySelectorAll(select.nav.homeLinks);
     thisApp.navLinks = document.querySelectorAll(select.nav.links);
     
     const idFromHash = window.location.hash.replace('#/', '');
     let pageMatchingHash = thisApp.pages[0].id;
 
-    for ( let page of thisApp.pages) {
-      if ( page.id == idFromHash) {
+    for ( let page of thisApp.pages ) {
+      if ( page.id == idFromHash ) {
         pageMatchingHash = page.id;
         break;
       } 
     }
     thisApp.activatePage(pageMatchingHash);  
+
+    const navs = [...thisApp.homeLinks, ...thisApp.navLinks ];
     
-    for ( let link of thisApp.navLinks ) {
-      link.addEventListener('click', function(event) {
+    for ( let nav of navs) {
+      nav.addEventListener('click', function(event) {
         const clickedElement = this;
         event.preventDefault();
 

@@ -1,5 +1,3 @@
-import { select } from '../settings.js';
-
 class Carousel {
   constructor(element) {
     const thisCarousel = this;
@@ -10,21 +8,19 @@ class Carousel {
   render(element) {
     const thisCarousel = this;
 
-    thisCarousel.dom = {};
-    thisCarousel.dom.wrapper = element; 
-    thisCarousel.dom.carousel = thisCarousel.dom.wrapper.querySelector(select.widgets.home.carousel);
+    thisCarousel.wrapper = element;
   }
 
   initPlugin() {
     const thisCarousel = this;
 
     // eslint-disable-next-line no-undef
-    new Flickity(thisCarousel.dom.carousel, {
+    new Flickity(thisCarousel.wrapper, {
       cellAlign: 'left',
       contain: true,
-      draggable: '>1',
-      autoplay: true,
+      autoPlay: true,
       prevNextButtons: false,
+      pauseAutoPlayOnHover: false,
     });
   }
 }
