@@ -1,5 +1,5 @@
 import {select, templates} from '../settings.js';
-import Carousel from './Carousel.js';
+import Carousel from '../components/Carousel.js';
 
 class Home {
   constructor(element) {
