@@ -24,7 +24,7 @@ class AmountWidget extends BaseWidget {
   isValid(value) {
     return !isNaN(value)
     && value >= settings.amountWidget.defaultMin 
-    && value <= settings.amountWidget.defaultMax;  //a może wpisać tutaj wartości 0 - 10 zamiast tych przekierowań?
+    && value <= settings.amountWidget.defaultMax;  
   }
 
   renderValue() {

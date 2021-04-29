@@ -18,7 +18,7 @@
       cursor: pointer;
       height: 100px;
       text-decoration: none;
-      transition: all ease-in-out 0.25s;
+      transition: $transition-pictures;
       width: 295px;
       .description-title {
         margin-top: 35px;
@@ -27,7 +27,7 @@
         display: none;
       }
       &:hover > .description-title {
-        transition: all ease-in-out 0.25s;
+        transition: $transition-pictures;
         margin-top: 25px;
       }
       &:hover > .description-content{
@@ -35,7 +35,7 @@
         font-size: 15px;
         font-weight: 600;
         margin-top: -30px;
-        transition: all ease-in-out 0.25s;
+        transition: $transition-pictures;
       }
     } 
     .booking-box {
@@ -45,7 +45,7 @@
       cursor: pointer;
       height: 100px;
       text-decoration: none;
-      transition: all ease-in-out 0.25s;
+      transition: $transition-pictures;
       width: 295px;
       .description-title {
         margin-top: 35px;
@@ -55,14 +55,14 @@
       }
       &:hover > .description-title {
         margin-top: 25px;
-        transition: all ease-in-out 0.25s;
+        transition: $transition-pictures;
       }
       &:hover > .description-content{
         display: block;
         font-size: 15px;
         font-weight: 600;
         margin-top: -30px;
-        transition: all ease-in-out 0.25s;
+        transition: $transition-pictures;
       }
     }
   }
@@ -120,18 +120,14 @@
     padding: 2px;
     border-radius: 5px;
     .gallery-overlay {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      margin-right: -50%;
-      transform: translate(-50%, -50%);
+      @include center();
       opacity: 0;
       text-align: center;
     }
     &:hover {
       cursor: pointer;
       opacity: 0.8;
-      transition: all 1s;
+      transition: $transition;
       .gallery-overlay {
         opacity: 1;
         text-align: center;
@@ -140,7 +136,7 @@
           font-size: 30px;
           letter-spacing: 15px;
           &:hover {
-            transition: all 1s;
+            transition: $transition;
             color: $color-main;
           }
         }
@@ -150,21 +146,17 @@
 }
 
 .footer-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flex(row, center, center);
   margin-bottom: 0px;
   .footer-link {
     text-decoration: none;
     color: $color-main;
     cursor: pointer;
-    transition: all ease-in 0.5s;
-    justify-content: center;
-    align-items: center;
+    transition: $transition-footer;
     margin-bottom: 0px;
     &:hover {
       transform: scale(1.5, 1.5);
-      transition: all ease-in 0.5s;
+      transition: $transition-footer;
     }
   }
 }

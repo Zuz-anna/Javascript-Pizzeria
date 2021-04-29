@@ -203,7 +203,7 @@ class Booking {
   initTables() {
     const thisBooking = this;
         
-    thisBooking.dom.tablesAll.addEventListener('click', function(event) { //nasłuchiwacz na cały obszar
+    thisBooking.dom.tablesAll.addEventListener('click', function(event) { 
       event.preventDefault();
 
       const clicked = event.target;
@@ -244,8 +244,8 @@ class Booking {
       date: thisBooking.datePicker.value,
       hour: thisBooking.hourPicker.value,
       table: thisBooking.tableNumber,
-      duration: thisBooking.dom.hoursAmount.value, 
-      ppl: thisBooking.dom.peopleAmount.value,
+      duration: thisBooking.hoursAmountWidget.correctValue, 
+      ppl: thisBooking.peopleAmountWidget.correctValue,
       phone: thisBooking.dom.phone.value,
       address: thisBooking.dom.address.value,
       starters: [],
@@ -256,8 +256,6 @@ class Booking {
         payload.starters.push(starter.value);
       } 
     }
-
-    console.log('payload', payload);
 
     const options = {
       method: 'POST',
@@ -272,7 +270,6 @@ class Booking {
         return response.json();
       })
       .then(function(parsedResponse) {
-        //console.log('parsedResponse', parsedResponse);
         thisBooking.makeBooked(payload.date, payload.hour, payload.duration, payload.table);
         thisBooking.getData();
       });
